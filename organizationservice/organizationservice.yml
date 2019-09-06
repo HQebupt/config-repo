@@ -1,11 +1,31 @@
-spring.jpa.database: "POSTGRESQL"
-spring.datasource.platform:  "postgres"
-spring.jpa.show-sql: "true"
-spring.database.driverClassName: "org.postgresql.Driver"
-spring.datasource.url: "jdbc:postgresql://localhost:5432/eagle_eye_local"
-spring.datasource.username: "postgres"
-spring.datasource.password: "root"
-spring.datasource.testWhileIdle: "true"
-spring.datasource.validationQuery: "SELECT 1"
-spring.jpa.properties.hibernate.dialect: "org.hibernate.dialect.PostgreSQLDialect"
-signing.key: "345345fsdfsf5345"
+spring:
+  application:
+    name: organizationservice
+    profiles:
+      active: default
+    datasource:
+      url: jdbc:mysql://localhost:3306/eagereyes
+      username: root
+      password:                # for build and test, we use username:password(root,"") in the configure.
+      driverClassName: com.mysql.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
+      continueOnError: true
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      jpa:
+        hibernate:
+          ddl-auto: update
+        database-platform: org.hibernate.dialect.MySQLDialect
+    ribbon:
+      ConnectTimeout: 60000
+      ReadTimeout: 60000
+    hystrix:
+      command:
+        default:
+          execution:
+            isolation:
+              thread:
+                timeoutInMillisecon
